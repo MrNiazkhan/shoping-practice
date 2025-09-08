@@ -1,63 +1,69 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const categories = [
+  {
+    title: "Men's Outerwear",
+    image:
+      "https://shop.polymer-project.org/esm-bundled/images/mens_outerwear.jpg",
+    link: "/mens-outerwear",
+  },
+  {
+    title: "Ladies Outerwear",
+    image:
+      "https://shop.polymer-project.org/esm-bundled/images/ladies_outerwear.jpg",
+    link: "/ladies-outerwear",
+  },
+  {
+    title: "Men's T-Shirts",
+    image:
+      "https://shop.polymer-project.org/esm-bundled/images/mens_tshirts.jpg",
+    link: "/mens-t-shirts",
+  },
+  {
+    title: "Ladies T-Shirts",
+    image:
+      "https://shop.polymer-project.org/esm-bundled/images/ladies_tshirts.jpg",
+    link: "/ladies-t-shirts",
+  },
+];
 
 const Home = () => {
   return (
-    <main>
-      <div className="flex flex-col justify-between">
-        <div className="flex flex-col gap-6 mb-12 items-center justify-center">
-          <img
-            className="h-full w-full"
-            src="https://shop.polymer-project.org/esm-bundled/images/mens_outerwear.jpg"
-            alt="Men's Outerwear"
-          />
-          <h1>Men's Outerwear</h1>
-          <Link to="/mens-outerwear">
-            <button className="border-solid border-2 border-black p-2 pl-8 pr-8 ">
-              SHOP NOW
-            </button>
-          </Link>
-        </div>
-        <div className="flex flex-col items-center gap-6 mb-12  justify-center">
-          <img
-            src="https://shop.polymer-project.org/esm-bundled/images/ladies_outerwear.jpg"
-            alt="Ladies Outerwear"
-          />
-          <h1>Ladies Outerwear</h1>
-          <Link to="/ladies-outerwear">
-            <button className="border-solid border-2 border-black p-2 pl-8 pr-8 ">
-              SHOP NOW
-            </button>
-          </Link>
-        </div>
-        <div className="flex">
-          <div className="flex flex-col items-center gap-6 mb-12 justify-center w-1/2">
+    <main className="w-full min-h-screen bg-gray-50 py-12 px-6 md:px-16 lg:px-24">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+        {categories.map((category, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+          >
+            {/* Category Image */}
             <img
-              className="h-80  max-w-fit"
-              src="https://shop.polymer-project.org/esm-bundled/images/mens_tshirts.jpg"
-              alt="Men's T-Shirts"
+              src={category.image}
+              alt={category.title}
+              className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <h1>Men's T-Shirts</h1>
-            <Link to="/mens-t-shirts">
-            <button className="border-solid border-2 border-black p-2 pl-8 pr-8 ">
-              SHOP NOW
-            </button>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-6 mb-12 justify-center ">
-            <img
-              className="h-full w-full"
-              src="https://shop.polymer-project.org/esm-bundled/images/ladies_tshirts.jpg"
-              alt="Ladies T-Shirts"
-            />
-            <h1>Ladies T-Shirts</h1>
-            <Link to="/ladies-t-shirts">
-            <button className="border-solid border-2 border-black p-2 pl-8 pr-8 ">
-              SHOP NOW
-            </button>
-            </Link>
-          </div>
-        </div>
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-90 group-hover:opacity-100 transition duration-500 flex flex-col items-center justify-end p-6">
+              <h1 className="text-white text-2xl md:text-3xl font-bold mb-4 drop-shadow-lg">
+                {category.title}
+              </h1>
+              <Link to={category.link}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white text-black font-semibold px-8 py-3 rounded-full shadow-md hover:bg-gray-100 transition"
+                >
+                  SHOP NOW
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </main>
   );
